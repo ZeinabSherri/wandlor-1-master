@@ -438,59 +438,88 @@ function lightboxgallery() {}! function(e) {
             }
         })
     }(jQuery),
-    function(e) {
-        mainBanner(),mainBanner2(),mainBanner3(), VideoInit(), menuFull(), lightboxgallery();
-        var a = e(".intro-default__slider").flickity({
-            cellAlign: "center",
-            wrapAround: !0,
-            prevNextButtons: !1,
-            pageDots: !1,
-            draggable: !1
+    (function (e) {
+        mainBanner();
+        mainBanner2();
+        mainBanner3();
+        VideoInit();
+        menuFull();
+        lightboxgallery();
+      
+        e(window).on("load", function () {
+          animationInview();
+          e("#mask").delay(500).fadeOut("slow", function () {
+            animationInview();
+          });
+      
+          var $gridItems = e(".grid-item");
+      
+          e(".js-filters").on("click", "li", function () {
+            var filter = e(this).attr("data-filter");
+      
+            // Remove the "is-checked" class from other filter options
+            e(".js-filters li").removeClass("is-checked");
+      
+            // Add the "is-checked" class to the clicked filter option
+            e(this).addClass("is-checked");
+      
+            // Show/hide grid items based on the selected category
+            if (filter === ".featured") {
+              $gridItems.hide().filter(".featured").show();
+            } else {
+              $gridItems.hide().filter(filter).show();
+            }
+          });
+      
+          e(".js-loadmore").on("click", function () {
+            var i = e(".js-more-items").appendTo(".grid-gallery");
+            return i.show(), !1;
+          });
+      
+          jQuery().parallax && jQuery(".parallax-section").parallax();
+      
+          e("a[href*=\\#]").on("click", function () {
+            if (
+              location.pathname.replace(/^\//, "") ===
+                this.pathname.replace(/^\//, "") &&
+              location.hostname === this.hostname
+            ) {
+              var a = e(this.hash);
+              if (
+                (a =
+                  (a.length && a) || e("[name=" + this.hash.slice(1) + "]")),
+                a.length
+              ) {
+                var i = a.offset().top;
+                return (
+                  e("html,body").animate(
+                    {
+                      scrollTop: i - 42,
+                    },
+                    1e3
+                  ),
+                  !1
+                );
+              }
+            }
+          });
+      
+          e("body.overflowed").length > 0 && e("#jHeader").addClass("overflow");
+      
+          e(window).bind("scroll", function () {
+            e("body.overflowed").length < 1 &&
+              (e(window).scrollTop() >= 85
+                ? e(".js-header").addClass("overflow")
+                : e(".js-header").removeClass("overflow"),
+              e(window).scrollTop() >= 2
+                ? e(".js-header-fixsmall").addClass("fixed-small")
+                : e(".js-header-fixsmall").removeClass("fixed-small")),
+              e(window).scrollTop() >= e(".jIntro").height() / 2
+                ? e(".js-header").addClass("fixed")
+                : e(".js-header").removeClass("fixed");
+          });
         });
-        e(".default__slider-buttons").on("click", ".button", function() {
-            var i = e(this).index();
-            a.flickity("select", i), e(this).addClass("selected").siblings().removeClass("selected");
-            var t = i + 1;
-            e(".default__slider-counter").html("0" + t)
-        }), e(window).on("load", function() {
-            animationInview(), e("#mask").delay(500).fadeOut("slow", function() {
-                animationInview()
-            });
-            var a = e(".grid-gallery").isotope({
-                itemSelector: ".grid-item",
-                masonry: {
-                    columnWidth: ".grid-item"
-                }
-            });
-            e(".js-filters").on("click", "li", function() {
-                var i = e(this).attr("data-filter");
-                a.isotope({
-                    filter: i
-                })
-            }).each(function(a, i) {
-                var t = e(i);
-                t.on("click", "li", function() {
-                    t.find(".is-checked").removeClass("is-checked"), e(this).addClass("is-checked")
-                })
-            }), e(".js-loadmore").on("click", function() {
-                var i = e(".js-more-items").appendTo(a);
-                return a.isotope("insert", i), e(this).hide(), !1
-            }), jQuery().parallax && jQuery(".parallax-section").parallax(), e("a[href*=\\#]").on("click", function() {
-                if (location.pathname.replace(/^\//, "") === this.pathname.replace(/^\//, "") && location.hostname === this.hostname) {
-                    var a = e(this.hash);
-                    if (a = a.length && a || e("[name=" + this.hash.slice(1) + "]"), a.length) {
-                        var i = a.offset().top;
-                        return e("html,body").animate({
-                            scrollTop: i - 42
-                        }, 1e3), !1
-                    }
-                }
-            }), e("body.overflowed").length > 0 && e("#jHeader").addClass("overflow"), e(window).bind("scroll", function() {
-                e("body.overflowed").length < 1 && (e(window).scrollTop() >= 85 ? e(".js-header").addClass("overflow") : e(".js-header").removeClass("overflow"), e(window).scrollTop() >= 2 ? e(".js-header-fixsmall").addClass("fixed-small") : e(".js-header-fixsmall").removeClass("fixed-small")), e(window).scrollTop() >= e(".jIntro").height() / 2 ? e(".js-header").addClass("fixed") : e(".js-header").removeClass("fixed")
-            })
-        })
-    }(jQuery);
-
+      })(jQuery);
     function openTab(tabName) {
         var i, x;
         x = document.getElementsByClassName("containertab-ray");
@@ -532,7 +561,118 @@ function lightboxgallery() {}! function(e) {
           }
         });
       });
+      function moveToSelected(element) {
+
+        if (element == "next") {
+          var selected = $(".selected").next();
+        } else if (element == "prev") {
+          var selected = $(".selected").prev();
+        } else {
+          var selected = element;
+        }
       
+        var next = $(selected).next();
+        var prev = $(selected).prev();
+        var prevSecond = $(prev).prev();
+        var nextSecond = $(next).next();
       
+        $(selected).removeClass().addClass("selected");
+      
+        $(prev).removeClass().addClass("prev");
+        $(next).removeClass().addClass("next");
+      
+        $(nextSecond).removeClass().addClass("nextRightSecond");
+        $(prevSecond).removeClass().addClass("prevLeftSecond");
+      
+        $(nextSecond).nextAll().removeClass().addClass('hideRight');
+        $(prevSecond).prevAll().removeClass().addClass('hideLeft');
+      
+      }
+      
+      // Eventos teclado
+      $(document).keydown(function(e) {
+          switch(e.which) {
+              case 37: // left
+              moveToSelected('prev');
+              break;
+      
+              case 39: // right
+              moveToSelected('next');
+              break;
+      
+              default: return;
+          }
+          e.preventDefault();
+      });
+      
+      $('#carousel div').click(function() {
+        moveToSelected($(this));
+      });
+      
+      $('#prev').click(function() {
+        moveToSelected('prev');
+      });
+      
+      $('#next').click(function() {
+        moveToSelected('next');
+    });
+    const scrollTopButton = document.getElementById("scroll-top");
+
+window.addEventListener("scroll", () => {
+  if (document.documentElement.scrollTop > 300) {
+    scrollTopButton.style.display = "block";
+  } else {
+    scrollTopButton.style.display = "none";
+  }
+});
+
+scrollTopButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  const targetPosition = 0;
+  const startPosition = window.pageYOffset;
+  const distance = targetPosition - startPosition;
+  const duration = 1000;
+  let start = null;
+
+  function scrollToTop(timestamp) {
+    if (!start) start = timestamp;
+    const progress = timestamp - start;
+    window.scrollTo(0, easeInOutCubic(progress, startPosition, distance, duration));
+    if (progress < duration) window.requestAnimationFrame(scrollToTop);
+  }
+
+  function easeInOutCubic(t, b, c, d) {
+    t /= d / 2;
+    if (t < 1) return (c / 2) * t * t * t + b;
+    t -= 2;
+    return (c / 2) * (t * t * t + 2) + b;
+  }
+
+  window.requestAnimationFrame(scrollToTop);
+});
+$('.owl-carousel').owlCarousel({
+    loop: true,
+    margin: 10,
+    nav: true,
+    navText: [
+      "<i class='fa fa-caret-left'></i>",
+      "<i class='fa fa-caret-right'></i>"
+    ],
+    autoplay: true,
+    autoplayHoverPause: true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 3
+      },
+      1000: {
+        items: 5
+      }
+    }
+  })
+
+
       
     

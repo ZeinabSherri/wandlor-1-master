@@ -1,8 +1,8 @@
 <?php
 if(isset($_POST['email'])){
-        $mailTo = "epic@jellythemes.com";
-        $subject = "mail from web";
-        $body = "New message from web
+        $mailTo = "zeinabsherri70@gmail.com";
+        $subject = "mail from wandlor";
+        $body = "New message from client
 <br><br>
 FROM: ".$_POST['email']."<br>
 NAME: ".$_POST['name']."<br>
