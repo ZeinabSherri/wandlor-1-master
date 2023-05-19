@@ -674,5 +674,4 @@ $('.owl-carousel').owlCarousel({
   })
 
 
-      
-    
+  
