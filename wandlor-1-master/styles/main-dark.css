@@ -20684,7 +20684,7 @@
 .column-ray {
   float: left;
   width: 30%;
-  padding: 40px;
+  padding: 80px;
   text-align: center;
   font-size: 20px;
   cursor: pointer;
@@ -20712,7 +20712,7 @@
   margin-bottom: 20px;
 }
 .column-ray img{
-    width: 50px;
+    width: 160px;
 }
 
 .column-ray h4{
@@ -21023,4 +21023,38 @@ padding-top: 100px;
   .column-grid img {
     margin-top: 8px;
     vertical-align: middle;
+  }
+
+  /* Slider */
+  .slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .slider-cont {
+    display: flex;
+    width: max-content;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .logo-slider {
+    flex: 0 0 auto;
+    margin: 0 10px;
+  }
+  
+  .slider-arrows {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+  
+  .prev-arrow,
+  .next-arrow {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 24px;
+    cursor: pointer;
   }

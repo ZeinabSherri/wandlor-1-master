@@ -673,5 +673,25 @@ $('.owl-carousel').owlCarousel({
     }
   })
 
-
+  document.addEventListener("DOMContentLoaded", function() {
+    const slider = document.querySelector(".slider-cont");
+    const prevArrow = document.querySelector(".prev-arrow");
+    const nextArrow = document.querySelector(".next-arrow");
+    const logoWidth = document.querySelector(".brand__item").offsetWidth;
+    let scrollAmount = 0;
+  
+    nextArrow.addEventListener("click", function() {
+      if (scrollAmount < slider.scrollWidth - slider.offsetWidth) {
+        scrollAmount += logoWidth;
+        slider.style.transform = `translateX(-${scrollAmount}px)`;
+      }
+    });
+  
+    prevArrow.addEventListener("click", function() {
+      if (scrollAmount > 0) {
+        scrollAmount -= logoWidth;
+        slider.style.transform = `translateX(-${scrollAmount}px)`;
+      }
+    });
+  });
   
