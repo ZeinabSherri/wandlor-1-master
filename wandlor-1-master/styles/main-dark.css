@@ -18725,6 +18725,7 @@
  
  }
  .section.about {
+    /* margin-top: 10%; */
      position: relative;
      overflow: hidden
  }
@@ -20761,7 +20762,8 @@ padding-top: 100px;
  #scroll-top {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    /* right was 20px */
+    right: 65px;
     display: none;
     background-color: #0e0e0e;
     color: #45B877;
@@ -21059,3 +21061,78 @@ padding-top: 100px;
     font-size: 24px;
     cursor: pointer;
   }
+
+  /* responsive new last version */
+  
+  @media (max-width: 800px) {
+    .column-ray{
+        width:100%;
+    }
+}
+/* section awards  */
+.section.awards {
+    /* margin-top: 10%; */
+     position: relative;
+     overflow: hidden
+ }
+
+div#section-awards .container {
+    min-height: 1080px;
+}
+.section.awards .fullimage{
+    background: url(../images/demo/about/about2.jpg);
+    min-height: 590px;
+    background-size: cover;
+}
+
+
+.section.awards .fulltext{
+    background: #0e0e10;
+
+}
+.section.awards .fulltext .info{
+        max-width: 580px;
+        padding-left: 100px
+}
+.section.awards .fulltext h3{
+    color: #fff;
+    font-size: 34px;
+    letter-spacing: 0px;
+    margin-bottom: -10px;
+    word-spacing: -2.5px;
+    line-height: 49px;
+}
+.section.awards .fulltext .info p {
+    color: #fff;
+    font-size: 16px;
+    line-height: 32px;
+    font-weight: 400;
+    margin-bottom: 0;
+    margin-top: 42px;
+    letter-spacing: 0.5px;
+}
+.section.awards .fulltext .info p b{
+    color: #fff;
+    font-weight: 600;
+}
+.section.awards .fulltext .info .btn-primary {
+    background-color: transparent;
+    border-color: #fff;
+    color: #fff;
+    padding: 17px 42px;
+}
+.section.awards .fulltext .info .btn-primary:hover {
+    background-color: #fff;
+    border-color: #fff;
+    color: #0e0e0f!important;
+}
+
+.sectionco{
+    margin-bottom: 0;
+}
+
+@media (max-width: 468px) {
+    .sectionco{
+        margin-bottom:260%;
+}
+}
