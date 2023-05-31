@@ -695,3 +695,6 @@ $('.owl-carousel').owlCarousel({
     });
   });
   
+  function changeImage(element, newSrc) {
+    element.src = newSrc;
+  }
