@@ -14207,7 +14207,8 @@
  }
  
  .voffset-30 {
-     margin-bottom: 30px
+    /* was 30px */
+     margin-bottom: 2px
  }
  
  .voffset-40 {
@@ -21155,6 +21156,8 @@ div#section-awards .container {
     text-align: center;
     padding-bottom: 0px
 }
+}
+@media (max-width: 768px){
 .brand__list {
     list-style: none;
     padding: 0;
@@ -21167,4 +21170,5 @@ div#section-awards .container {
   height: auto;
 }
 }
+
 
