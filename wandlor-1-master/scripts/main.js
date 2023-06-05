@@ -650,49 +650,53 @@ scrollTopButton.addEventListener("click", (event) => {
 
   window.requestAnimationFrame(scrollToTop);
 });
-$('.owl-carousel').owlCarousel({
-    loop: true,
-    margin: 10,
-    nav: true,
-    navText: [
-      "<i class='fa fa-caret-left'></i>",
-      "<i class='fa fa-caret-right'></i>"
-    ],
-    autoplay: true,
-    autoplayHoverPause: true,
-    responsive: {
-      0: {
-        items: 1
-      },
-      600: {
-        items: 3
-      },
-      1000: {
-        items: 5
-      }
-    }
-  })
 
+
+  // document.addEventListener("DOMContentLoaded", function() {
+  //   const slider = document.querySelector(".slider-cont");
+  //   const prevArrow = document.querySelector(".prev-arrow");
+  //   const nextArrow = document.querySelector(".next-arrow");
+  //   const logoWidth = document.querySelector(".brand__item").offsetWidth;
+  //   let scrollAmount = 0;
+  
+  //   nextArrow.addEventListener("click", function() {
+  //     if (scrollAmount < slider.scrollWidth - slider.offsetWidth) {
+  //       scrollAmount += logoWidth;
+  //       slider.style.transform = `translateX(-${scrollAmount}px)`;
+  //     }
+  //   });
+  
+  //   prevArrow.addEventListener("click", function() {
+  //     if (scrollAmount > 0) {
+  //       scrollAmount -= logoWidth;
+  //       slider.style.transform = `translateX(-${scrollAmount}px)`;
+  //     }
+  //   });
+  // });
   document.addEventListener("DOMContentLoaded", function() {
     const slider = document.querySelector(".slider-cont");
     const prevArrow = document.querySelector(".prev-arrow");
     const nextArrow = document.querySelector(".next-arrow");
-    const logoWidth = document.querySelector(".brand__item").offsetWidth;
-    let scrollAmount = 0;
+    const brandItem = document.querySelector(".brand__item");
+    
+    if (brandItem !== null) {
+      const logoWidth = brandItem.offsetWidth;
+      let scrollAmount = 0;
   
-    nextArrow.addEventListener("click", function() {
-      if (scrollAmount < slider.scrollWidth - slider.offsetWidth) {
-        scrollAmount += logoWidth;
-        slider.style.transform = `translateX(-${scrollAmount}px)`;
-      }
-    });
+      nextArrow.addEventListener("click", function() {
+        if (scrollAmount < slider.scrollWidth - slider.offsetWidth) {
+          scrollAmount += logoWidth;
+          slider.style.transform = `translateX(-${scrollAmount}px)`;
+        }
+      });
   
-    prevArrow.addEventListener("click", function() {
-      if (scrollAmount > 0) {
-        scrollAmount -= logoWidth;
-        slider.style.transform = `translateX(-${scrollAmount}px)`;
-      }
-    });
+      prevArrow.addEventListener("click", function() {
+        if (scrollAmount > 0) {
+          scrollAmount -= logoWidth;
+          slider.style.transform = `translateX(-${scrollAmount}px)`;
+        }
+      });
+    }
   });
   
   function changeImage(element, newSrc) {
