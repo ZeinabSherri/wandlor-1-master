@@ -519,7 +519,7 @@ function lightboxgallery() {}! function(e) {
                 : e(".js-header").removeClass("fixed");
           });
         });
-      })(jQuery);
+})(jQuery);
     function openTab(tabName) {
         var i, x;
         x = document.getElementsByClassName("containertab-ray");
