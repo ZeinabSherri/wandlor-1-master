@@ -18772,10 +18772,21 @@
  }
  .section.about .fullimage{
      background: url(../images/demo/about/about2.jpg);
-     min-height: 590px;
+     min-height: 500px;
+     /* min-height: 590px */
      background-size: cover;
  }
+ @media (max-width:992px) {
+
  
+    .section.about .fullimage{
+        background: url(../images/demo/about/about2.jpg);
+        min-height: 480px;
+        background-size: cover;
+    }
+  
+ }
+
  
  .section.about .fulltext{
      /* background: #0e0e10; */
