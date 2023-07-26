@@ -15466,6 +15466,26 @@
      left: 0
  }
  
+ /* .material-icon .loader-video {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    top: 0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+} */
+
+
+.material-icon .loader-video {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    top: -20%;
+    left: 50%; /* Set left to 50% to center the element horizontally */
+    transform: translateX(-150px); /* Move the element 20 pixels to the left */
+}
  .material-icon .spinner {
      width: 60px;
      height: 60px;
@@ -21243,3 +21263,11 @@ div#section-awards .container {
       z-index: 20;
   }
   }
+
+  .responsive-image-container {
+    height: 95%;
+    /* You can add additional styling if needed, like centering the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
