@@ -15463,7 +15463,8 @@
      width: 100%;
      z-index: 100000;
      top: 0;
-     left: 0
+     left: 0;
+    
  }
  
  /* .material-icon .loader-video {
@@ -15485,7 +15486,31 @@
     top: -20%;
     left: 50%; /* Set left to 50% to center the element horizontally */
     transform: translateX(-150px); /* Move the element 20 pixels to the left */
+    
 }
+/* For screens with a maximum width of 768px (adjust as needed) */
+@media (max-width: 768px) {
+    .material-icon .loader-video {
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        top: 20%; /* Adjust the vertical placement */
+        left: 50%;
+        transform: translate(-50%, -20%);
+    }
+
+    #mask {
+        background-color: #000;
+        height: 100%;
+        position: fixed;
+        width: 100%;
+        z-index: 100000;
+        top: 0;
+        left: 0;
+    }
+}
+
+
  .material-icon .spinner {
      width: 60px;
      height: 60px;
