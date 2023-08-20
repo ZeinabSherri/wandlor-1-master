@@ -702,3 +702,23 @@ scrollTopButton.addEventListener("click", (event) => {
   function changeImage(element, newSrc) {
     element.src = newSrc;
   }
+
+
+  $(document).ready(function() {
+    $('#contactform').submit(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(response) {
+                $('#message-status').html('Message sent successfully!');
+                $('#contactform')[0].reset();
+            },
+            error: function() {
+                $('#message-status').html('Error sending message.');
+            }
+        });
+    });
+});

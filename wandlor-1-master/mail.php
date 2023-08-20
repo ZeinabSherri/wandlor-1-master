@@ -1,4 +1,35 @@
 <?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $to = 'zeinabsherri70@gmail.com';
+    $subject = 'New Contact Form Submission';
+
+    $first = $_POST['first'];
+    $last = $_POST['last'];
+    $email = $_POST['email'];
+    $location = $_POST['location'];
+    $message = $_POST['message'];
+
+    $headers = "From: $email" . "\r\n" .
+               "Reply-To: $email" . "\r\n" .
+               "X-Mailer: PHP/" . phpversion();
+
+    $messageBody = "First Name: $first\nLast Name: $last\nEmail: $email\nLocation: $location\nMessage: $message";
+
+    if (mail($to, $subject, $messageBody, $headers)) {
+        echo 'success';
+    } else {
+        echo 'error';
+    }
+}
+?>
+
+
+
+
+
+
+
+<!-- <?php
 if(!isset($_POST['submit']))
 {
 	//This page should not be accessed directly. Need to submit the form.
@@ -59,7 +90,7 @@ function IsInjected($str)
 }
 
 ?>
-
+ -->
 
 
 <!-- ?php
