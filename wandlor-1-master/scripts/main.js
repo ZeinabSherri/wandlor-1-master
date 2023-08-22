@@ -704,21 +704,21 @@ scrollTopButton.addEventListener("click", (event) => {
   }
 
 
-  $(document).ready(function() {
-    $('#contactform').submit(function(e) {
-        e.preventDefault();
+//   $(document).ready(function() {
+//     $('#contactform').submit(function(e) {
+//         e.preventDefault();
 
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            success: function(response) {
-                $('#message-status').html('Message sent successfully!');
-                $('#contactform')[0].reset();
-            },
-            error: function() {
-                $('#message-status').html('Error sending message.');
-            }
-        });
-    });
-});
+//         $.ajax({
+//             type: 'POST',
+//             url: $(this).attr('action'),
+//             data: $(this).serialize(),
+//             success: function(response) {
+//                 $('#message-status').html('Message sent successfully!');
+//                 $('#contactform')[0].reset();
+//             },
+//             error: function() {
+//                 $('#message-status').html('Error sending message.');
+//             }
+//         });
+//     });
+// });
