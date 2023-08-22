@@ -1,24 +1,45 @@
 <?php
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $to = 'zeinabsherri70@gmail.com';
-    $subject = 'New Contact Form Submission';
-
-    $first = $_POST['first'];
-    $last = $_POST['last'];
-    $email = $_POST['email'];
+    $firstName = $_POST['first'];
+    $lastName = $_POST['last'];
+    $userEmail = $_POST['email'];
     $location = $_POST['location'];
-    $message = $_POST['message'];
+    $messageBody = $_POST['message'];
 
-    $headers = "From: $email" . "\r\n" .
-               "Reply-To: $email" . "\r\n" .
-               "X-Mailer: PHP/" . phpversion();
+    // Instantiate PHPMailer
+    $phpmailer = new PHPMailer(true);
 
-    $messageBody = "First Name: $first\nLast Name: $last\nEmail: $email\nLocation: $location\nMessage: $message";
+    try {
+        // SMTP settings
+        $phpmailer->isSMTP();
+        $phpmailer->Host = "smtp.gmail.com";
+        $phpmailer->SMTPAuth = true;
+        $phpmailer->Port = 587;
+        $phpmailer->Username = 'zeinabsherri70@gmail.com'; // Replace with your Gmail email
+        $phpmailer->Password = 'viepgsetdhjdowye'; // Replace with your Gmail password or App Password
+        $phpmailer->SMTPSecure = 'tls';
+        
+        // Set sender and recipient
+        $phpmailer->setFrom($userEmail, $firstName . ' ' . $lastName);
+        $phpmailer->addAddress('zeinabsherri70@gmail.com'); // Replace with recipient's email
+        
+        // Email content
+        $phpmailer->isHTML(true);
+        $phpmailer->Subject = 'Contact Form Submission';
+        $phpmailer->Body = "Name: $firstName $lastName<br>Email: $userEmail<br>Location: $location<br>Message: $messageBody";
 
-    if (mail($to, $subject, $messageBody, $headers)) {
-        echo 'success';
-    } else {
-        echo 'error';
+        $phpmailer->send();
+        echo "Message sent successfully";
+    } catch (Exception $e) {
+        echo "Message not sent: " . $phpmailer->ErrorInfo;
     }
 }
 ?>
@@ -26,132 +47,91 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-
-
-
-<!-- <?php
-if(!isset($_POST['submit']))
-{
-	//This page should not be accessed directly. Need to submit the form.
-	echo "error; you need to submit the form!";
-}
-$name = $_POST['name'];
-$visitor_email = $_POST['email'];
-$message = $_POST['message'];
-
-//Validate first
-if(empty($name)||empty($visitor_email)) 
-{
-    echo "Name and email are mandatory!";
-    exit;
-}
-
-if(IsInjected($visitor_email))
-{
-    echo "Bad email value!";
-    exit;
-}
-
-$email_from = 'example@domain.com';//<== UPDATE THE EMAIL ADDRESS
-$email_subject = "New Form submission";
-$email_body = "You have received a new message from the user $name.\n".
-    "Here is the message:\n $message".
-    
-$to = "example@domain.com";//<== UPDATE THE EMAIL ADDRESS
-$headers = "From: $email_from \r\n";
-$headers .= "Reply-To: $visitor_email \r\n";
-//Send the email!
-mail($to,$email_subject,$email_body,$headers);
-//done. redirect to thank-you page.
-header('Location: index.html');
-
-
-// Function to validate against any email injection attempts
-function IsInjected($str)
-{
-  $injections = array('(\n+)',
-              '(\r+)',
-              '(\t+)',
-              '(%0A+)',
-              '(%0D+)',
-              '(%08+)',
-              '(%09+)'
-              );
-  $inject = join('|', $injections);
-  $inject = "/$inject/i";
-  if(preg_match($inject,$str))
-    {
-    return true;
-  }
-  else
-    {
-    return false;
-}
-}
-
-?>
- -->
 
 
 <!-- ?php
-// Retrieve form data
-$first = $_POST['first'];
-$last = $_POST['last'];
-$email = $_POST['email'];
-$location = $_POST['location'];
-$message = $_POST['message'];
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/Exception.php';
 
-// Create a connection to the database
-$servername = "localhost";
-$username = "root"; // Assuming you are using the default XAMPP username
-$password = ''; // Assuming you are using the default XAMPP password
-$dbname = "wandlor";
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check the connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Prepare and execute the SQL statement
-$stmt = $conn->prepare("INSERT INTO mail (first, last, email, location, message) VALUES (?, ?, ?, ?, ?)");
-$stmt->bind_param("sssss", $first, $last, $email, $location, $message);
-$stmt->execute();
-
-// Check if the insertion was successful
-if ($stmt->affected_rows > 0) {
-    echo "Form data inserted successfully.";
-} else {
-    echo "Error inserting form data.";
-}
-
-// Close the statement and connection
-$stmt->close();
-$conn->close();
-
-if (isset($_POST['email'])) {
-    // Email configuration
-    $mailTo = "zeinabsherri70@gmail.com";
-    $subject = "Mail from wandlor";
-    $body = "New message from client<br><br>
-            FROM: " . $_POST['email'] . "<br>
-            NAME: " . $_POST['first'] . " " . $_POST['last'] . "<br>
-            LOCATION: " . $_POST['location'] . "<br>
-            MESSAGE: " . $_POST['message'] . "<br>";
-
-    // Set the headers
-    $headers = "From: " . $_POST['email'] . "\r\n";
-    $headers .= "Reply-To: " . $_POST['email'] . "\r\n";
-    $headers .= "Content-Type: text/html\r\n";
-
-    // Send the email
-    $mail_success = mail($mailTo, $subject, $body, $headers);
-
-    if ($mail_success) {
-        echo "Email sent successfully.";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $userEmail = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    
+    if (filter_var($userEmail, FILTER_VALIDATE_EMAIL)) {
+        $phpmailer = new PHPMailer(true);
+        
+        try {
+            $phpmailer->isSMTP();
+            $phpmailer->Host = "smtp.gmail.com";
+            $phpmailer->SMTPAuth = true;
+            $phpmailer->Port = 587;
+            $phpmailer->Username = 'zeinabsherri70@gmail.com'; // Use user's email as sender
+            $phpmailer->Password = 'viepgsetdhjdowye'; // Replace with your Gmail password
+            $phpmailer->SMTPSecure = 'tls';
+            
+            $phpmailer->setFrom('zeinabsherri70@gmail.com', 'Zeinab'); // Set sender's info
+            $phpmailer->addAddress('zeinabsherri70@gmail.com'); // Replace with recipient's email
+            
+            $phpmailer->isHTML(true);
+            $phpmailer->Subject = 'Test Subject';
+            $phpmailer->Body = "Test Body";
+            
+            $phpmailer->send();
+            echo "Message sent successfully";
+        } catch (Exception $e) {
+            echo "Message not sent: " . $phpmailer->ErrorInfo;
+        }
     } else {
-        echo "Error sending email.";
+        echo "Invalid email address";
     }
 }
 ? -->
+
+
+<!-- ?php require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/Exception.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+$phpmailer = new PHPMailer(true);
+    try{
+  $phpmailer->isSMTP();
+  $phpmailer->CharSet = 'UTF-8';
+$phpmailer->Host = "smtp.gmail.com";
+  $phpmailer->SMTPAuth = true;
+  $phpmailer->Port = 587;
+$phpmailer->Username = 'zeinabsherri70@gmail.com';
+$phpmailer->Password ='viep gset dhjd owye';
+  $phpmailer->SMTPSecure = 'tls';
+  // clear addresses of all types
+  $phpmailer->ClearAddresses();  // each AddAddress add to list
+  $phpmailer->ClearCCs();
+  $phpmailer->ClearBCCs();
+  $phpmailer->setFrom('sender','sender name');
+$phpmailer->addAddress('receiver');
+
+  $phpmailer->isHTML(true);
+  $phpmailer->Subject = 'test subject';
+  $phpmailer->Body = "test body ";
+
+$phpmailer->send();
+} catch (Exception $e){
+    echo "Message not sentt";
+}
+
+? -->
+
+
+
+
+
+
+
+
+
+

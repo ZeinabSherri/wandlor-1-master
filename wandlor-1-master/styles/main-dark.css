@@ -21296,3 +21296,9 @@ div#section-awards .container {
     justify-content: center;
     align-items: center;
 }
+
+#message {
+    color: white;
+    background-color: #333; /* Change to the desired background color */
+    padding: 10px;
+}

@@ -33,6 +33,12 @@
     <script src="scripts/vendor/modernizr.js"></script>
 
     <script src="https://kit.fontawesome.com/74253e1947.js" crossorigin="anonymous"></script>
+    <style>
+        /* Add CSS styles for the message */
+        #message {
+            color: white;
+        }
+    </style>
 </head>
 
 <body >
@@ -1895,7 +1901,24 @@ Reel Section End -->
                         <p>We all know how important your information is. They are always safe with us.</p>
                         <input type="submit" name="submit" value="SEND MESSAGE" class="btn btn-primary js-inview_h tra20 delay05">
                     </form>
-                    
+                    <div id="message"></div>
+
+                    <script>
+                        $(document).ready(function() {
+                            $("#contactform").submit(function(e) {
+                                e.preventDefault();
+                                var formData = $(this).serialize();
+                                $.ajax({
+                                    type: "POST",
+                                    url: "mail.php",
+                                    data: formData,
+                                    success: function(response) {
+                                        $("#message").html(response);
+                                    }
+                                });
+                            });
+                        });
+                    </script>
                     <!-- <form action="mail.php" method="post" id="contactform" class="contact-form">
                         <div class="form-group">
                             <input name="first" type="text" class="form-control  js-inview_h tra20 delay01" id="input-name" placeholder="First name">
