@@ -23,13 +23,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $phpmailer->Host = "smtp.gmail.com";
         $phpmailer->SMTPAuth = true;
         $phpmailer->Port = 587;
-        $phpmailer->Username = 'zeinabsherri70@gmail.com'; // Replace with your Gmail email
-        $phpmailer->Password = 'viepgsetdhjdowye'; // Replace with your Gmail password or App Password
+        $phpmailer->Username = 'wandloragency@gmail.com'; // Replace with your Gmail email
+        $phpmailer->Password = 'rarnrkdnjccfvgvq'; // Replace with your Gmail password or App Password
         $phpmailer->SMTPSecure = 'tls';
         
         // Set sender and recipient
         $phpmailer->setFrom($userEmail, $firstName . ' ' . $lastName);
-        $phpmailer->addAddress('zeinabsherri70@gmail.com'); // Replace with recipient's email
+        $phpmailer->addAddress('wandloragency@gmail.com'); // Replace with recipient's email
         
         // Email content
         $phpmailer->isHTML(true);
