@@ -21293,14 +21293,27 @@ div#section-awards .container {
   }
   }
 
-  .responsive-image-container {
+  /* .responsive-image-container {
+    height: 95%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+.responsive-image-container {
     height: 95%;
     /* You can add additional styling if needed, like centering the image */
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden; /* Hide any parts of the image that exceed the container */
 }
 
+.responsive-image-container img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover; /* Scale the image while maintaining its aspect ratio */
+}
 #message {
     color: white;
     background-color: #333; /* Change to the desired background color */
